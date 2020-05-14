@@ -12,7 +12,8 @@ Unlike C++, Java does not support operator overloading. Java uses comments simil
 console.log(txt);
 console.log();
 
-const outTxt  = txt.replace(new RegExp(`[A-Z][^.?!]+${C}[^.?!]*[.!?]`, 'g'), (match) => {
+// регулярка не учитывает, если C начало предложения 
+const outTxt  = txt.replace(new RegExp(`[A-Z][^.?!]+${C}[^.?!]*[.!?]`, 'g'), (match) => { 
     return match.replace(A,B);
 });
 console.log(outTxt)

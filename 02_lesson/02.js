@@ -13,4 +13,16 @@ Lorem ipsum dolor sit amet.
   { word: 'sit', sum: 336 },
   { word: 'amet.', sum: 469 }
 ] */
- 
+
+function getDetailsWords(txt) {
+    return txt.split(' ').map(word => {
+        return {
+            word, 
+            sum: word.split('').reduce((sum, ch) => { 
+                return sum + ch.charCodeAt(0);
+            },0)
+        };
+    });
+};
+
+console.log(getDetailsWords('Lorem ipsum dolor sit amet.'))

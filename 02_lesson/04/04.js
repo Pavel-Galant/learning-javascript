@@ -230,7 +230,8 @@ function flightReport(flight, nowTime) {
 }
 
 eRegistration('BH118-B50', 'Ivanov I. I.',  makeTime(11, 10));
-console.log(flightReport('BH118',  makeTime(18, 10)));
+const report = flightReport('BH118',  makeTime(18, 10));
+console.log(report);
 
 function displayFlights() {
     console.log('*** List of all flights ***');

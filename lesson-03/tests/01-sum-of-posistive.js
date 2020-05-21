@@ -6,7 +6,7 @@
  */
 function sumOfPositive(arr){
     return arr.reduce((res, n) => {
-        if (n > 0) {
+        if (n > 0 && n < Infinity) {
             res.count++;
             res.sum += n;
         }

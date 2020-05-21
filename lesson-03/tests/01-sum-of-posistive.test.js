@@ -3,6 +3,10 @@ describe('sumOfPositive', () => {
         const result = sumOfPositive([]);
         assert.deepEqual(result, {count: 0, sum: 0});
     });
+    it('array with 0, Nan and Infinity', () => {
+        const result = sumOfPositive([0, 0, 0, NaN, 5, Infinity, 0, 0, 0, -10, 20]);
+        assert.deepEqual(result, {count: 2, sum: 25});
+    });
     it('[-91, -93, -45, 67, 96, 40, -34, 96, -42, 58]', () => {
         const result = sumOfPositive([-91, -93, -45, 67, 96, 40, -34, 96, -42, 58]);
         assert.deepEqual(result, {count: 5, sum: 357});

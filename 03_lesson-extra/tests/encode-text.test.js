@@ -19,7 +19,7 @@ describe('encodeText', () => {
         assert.deepEqual(result, {dictionary:[],encodedText:""});
     });
     it('All spaces', () => {
-        const result = encodeText('');
+        const result = encodeText('    ');
         assert.deepEqual(result, {dictionary:[],encodedText:""});
     });
     it('Some spaces', () => {

@@ -1,21 +1,42 @@
-<!DOCTYPE HTML>
-<html>
-    <head> </head>
-    <body>
-        <div id ='1'>
-            <div id = '2'>
-                <div id = '3'>
-                    <p>Абзац внутри div#3</p>    
-                </div>
-                <p>Абзац внутри div#2</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Testing Flight Control System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css">
+    <!-- добавляем фреймворк тестирования mocha -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"></script>
+    <script>mocha.setup('bdd');</script>
+    <!-- добавим chai -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
+    <script>
+        // chai предоставляет большое количество функций. Объявим assert глобально
+        var assert = chai.assert;
+    </script>
+</head>
+<body>
+    <div id ='1'>
+        <div id = '2'>
+            <div id = '3'>
+                <p>Абзац внутри div#3</p>    
             </div>
-            <ul>
-                <li>Первый элемент списка (div#1)</li>
-                <li>Второй элемент списка (div#1)</li>
-                <li>Третий элемент списка (div#1)</li>
-                <li>Четвертый элемент списка (div#1)</li>
-            </ul>
+            <p>Абзац внутри div#2</p>
         </div>
-        <script src="01.js"></script>
-    </body>
+        <ul>
+            <li>Первый элемент списка (div#1)</li>
+            <li>Второй элемент списка (div#1)</li>
+            <li>Третий элемент списка (div#1)</li>
+            <li>Четвертый элемент списка (div#1)</li>
+        </ul>
+    </div>
+    <script src="01.js"></script>
+    <script src="01.test.js"></script>
+    <!-- элемент с id="mocha" будет содержать результаты тестов -->
+<div id="mocha"></div>
+
+<!-- запускаем тесты! -->
+<script>
+    mocha.run();
+</script>
+</body>
 </html>

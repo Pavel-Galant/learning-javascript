@@ -1,5 +1,5 @@
-dfDOM(document.documentElement)
-displayNode(document.documentElement)
+//dfDOM(document.documentElement)
+//displayNode(document.documentElement)
 function dfDOM( root ){ // обход в глубину
     let stack = [],
         deep = 0,

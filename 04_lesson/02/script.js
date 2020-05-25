@@ -32,4 +32,4 @@ let res4 = buyTicket(bigWorld, 'BH118', makeTime(5, 10), 'Zavrazhnov P. A.', 1);
 bigWorld = res4.world;
 console.log(bigWorld, res4.world);
 
-flightDetails(bigWorld, 'BH118-9');
+flightDetails(bigWorld, 'BH118');

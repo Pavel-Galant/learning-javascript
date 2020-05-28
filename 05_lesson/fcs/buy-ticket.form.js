@@ -28,6 +28,7 @@ function btfSubmitHandler(event) {
             +formData.type
         );
         alert(`You successfully buy ticket! Your place number ${ticket.seat}`);
+        btf.reset();
     } catch (error) {
         console.error(error);
         alert(error.message);

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>events</title>
+    <style>
+        body {
+            margin: 0px;
+            display:flex; flex-direction:column; justify-content:center;
+        }
+        table {
+            display: block;
+            margin: 20px auto;
+        }
+
+        table tr td {
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border: 1px solid gray;
+        }
+
+        table#picker-table {
+            display: block;
+            margin: 0px;
+        }
+
+        table#picker-table tr td {
+            width: 15px;
+            height: 15px;
+            border: 1px dotted red;
+        }
+
+        table#picker-table td:hover {
+            border: 1px solid red;
+            cursor: pointer;
+        }
+
+        div#picker {
+            z-index: 100;
+            position: absolute;
+            left: -1000px;
+            top: 0px;
+            max-width: 87px;
+            max-height: 87px;
+            border: 1px solid gray;
+            background-color: white;
+        }
+        div#top-fixed-panel {
+            width: 100%;
+            position: fixed;
+            top: 0px;
+            background-color: brown;
+            text-align: center;
+            color: white;
+            height: 60px;
+        }
+    </style>
+</head>
+
+<body style="background-color: red;">
+<div id="top-fixed-panel">
+    <h4>Show picker color (shift + mouse click). body.backgroundColor = current picker color </h2>
+</div>
+<div id="picker">
+    <table id="picker-table">
+        <tr>
+            <td data-color="black" style="background-color: black;"></td>
+            <td data-color="white" style="background-color: white;"></td>
+            <td data-color="gray" style="background-color: gray;"></td>
+            <td data-color="silver" style="background-color: silver;"></td>
+        </tr>
+        <tr>
+            <td data-color="maroon" style="background-color: maroon;"></td>
+            <td data-color="red" style="background-color: red;"></td>
+            <td data-color="purple" style="background-color: purple;"></td>
+            <td data-color="fuchsia" style="background-color: fuchsia;"></td>
+        </tr>
+        <tr>
+            <td data-color="green" style="background-color: green;"></td>
+            <td data-color="lime" style="background-color: lime;"></td>
+            <td data-color="olive" style="background-color: olive;"></td>
+            <td data-color="yellow" style="background-color: yellow;"></td>
+        </tr>
+        <tr>
+            <td data-color="navy" style="background-color: navy;"></td>
+            <td data-color="blue" style="background-color: blue;"></td>
+            <td data-color="teal" style="background-color: teal;"></td>
+            <td data-color="aqua" style="background-color: aqua;"></td>
+        </tr>
+    </table>
+</div>
+
+
+<script>
+    'use strict';
+    const dimension = 10; // размерность таблицы
+    // строим таблицу
+    const table = document.createElement('table');
+	for (let i = 0; i < dimension; i++) {
+		const tr = document.createElement('tr');
+		for (let j = 0; j < dimension; j++) {
+			const td = document.createElement('td');
+			tr.appendChild(td);
+		}
+		table.appendChild(tr);
+    }
+    table.style.marginTop = '100px';
+    //table.style.backgroundColor = 'white';
+    table.setAttribute('id', 'field');
+	document.body.appendChild(table);
+    //
+
+    const field = document.getElementById('field');
+    const picker = document.getElementById('picker');
+    const pickerTable= document.getElementById('picker-table');
+
+    document.addEventListener('click', event => {
+        picker.style.left = '-1000px' ;
+        picker.style.top = '0px';   
+        if (event.shiftKey) {
+            picker.style.left = (event.clientX + 2) + 'px' ;
+            picker.style.top = (event.clientY + 2) + 'px';   
+            return; 
+        }    
+    });
+    field.addEventListener('click', click);
+    pickerTable.addEventListener('click', (event) => {
+        if (event.target.tagName !== 'TD')
+            return;    
+        document.body.style.backgroundColor = event.target.dataset.color;
+    });
+
+    /**
+     * @param {MouseEvent} event
+     */
+    function click(event) {
+        if (event.shiftKey) { // дальше его обработает document
+            return; 
+        } 
+        if (event.target.tagName !== 'TD')
+            return;
+        event.target.style.backgroundColor = document.body.style.backgroundColor;
+    }
+</script>
+</body>
+
+</html>

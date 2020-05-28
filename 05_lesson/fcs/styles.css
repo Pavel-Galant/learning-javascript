@@ -1,0 +1,12 @@
+input.form-control, select.form-control {
+    height: 32px;
+    font-size: 16px;
+}
+
+input::placeholder {
+    font-size: 16px;
+}
+
+button.form-control {
+    height: 32px;
+}

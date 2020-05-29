@@ -60,7 +60,7 @@
     </tr>
 </table>
 
-
+<script src="calc.js"></script>
 <script>
     'use strict';
     const table = document.getElementsByTagName('table')[0];
@@ -68,6 +68,9 @@
     
     document.addEventListener('keydown', keydown);
     table.addEventListener('click', click);
+
+    let token = '';
+    let rpnArray = [];
 
     /**
      * @param {KeyboardEvent} event
@@ -78,8 +81,9 @@
             'C', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'BACKSPACE'];
         const key = event.key.toUpperCase();
         if (keys.includes(key)) {
-            const td = document.querySelector(`[data-code="${event.key.toUpperCase()}"]`);
-            if (td) td.click(); // imitation td click
+            /*const td = document.querySelector(`[data-code="${event.key.toUpperCase()}"]`);
+            if (td) td.click(); // imitation td click*/
+            codeHandler(key);
         }
     }
     /**
@@ -89,19 +93,36 @@
         if (event.target.tagName !== 'TD')
             return;
 
-        const code = event.target.dataset.code;
+        const key = event.target.dataset.code;
+        codeHandler(key);
+    }
+
+    /**
+     * @param {string} code
+     */
+    function codeHandler(code) {
         if (code === 'C') {
-            expression.textContent = '';
+            expression.textContent = token = '';
+            rpnArray = [];
         } else if (code === 'BACKSPACE') {
             expression.textContent = expression.textContent.slice(0, -1);
+            rpnArray.pop();
         } else if (code === '=') {
             try {
-                expression.textContent = new Function('return '+ expression.textContent)();
+                if (token !=='') rpnArray.push(token);
+                expression.textContent = token = rpn(yard(rpnArray));
+                rpnArray = [];
+                console.log(rpnArray, token);
             } catch(e) {
                 alert('Не верное выражение!')
             }
         } else {
             expression.textContent += code;
+            if (['*', '/', '+', '-', '(', ')'].includes(code)) {
+                rpnArray.push(token);
+                token = '';
+                rpnArray.push(code);
+            } else token += code;
         }
     }
 </script>

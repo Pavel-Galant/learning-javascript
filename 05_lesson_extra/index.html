@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>events</title>
+    <style>
+        table {
+            display: block;
+            margin: 20px auto;
+            max-width: 200px;
+            text-align: center;
+        }
+
+        table tr td {
+            width: 40px;
+            height: 40px;
+            border: 1px solid gray;
+        }
+        td#expression {
+            text-align: left;
+            padding: 0 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<table>
+    <tr><td colspan="4" id="expression"></td></tr>
+    <tr>
+        <td data-code="C">C</td>
+        <td data-code="(">(</td>
+        <td data-code=")">)</td>
+        <td data-code="BACKSPACE"><-</td>
+    </tr>
+    <tr>
+        <td data-code="1">1</td>
+        <td data-code="2">2</td>
+        <td data-code="3">3</td>
+        <td data-code="/">/</td>
+    </tr>
+    <tr>
+        <td data-code="4">4</td>
+        <td data-code="5">5</td>
+        <td data-code="6">6</td>
+        <td data-code="*">*</td>
+    </tr>
+    <tr>
+        <td data-code="7">7</td>
+        <td data-code="8">8</td>
+        <td data-code="9">9</td>
+        <td data-code="-">-</td>
+    </tr>
+    <tr>
+        <td data-code="0">0</td>
+        <td data-code=".">.</td>
+        <td data-code="=">=</td>
+        <td data-code="+">+</td>
+    </tr>
+</table>
+
+<script src="calc.js"></script>
+<script>
+    'use strict';
+    const table = document.getElementsByTagName('table')[0];
+    const expression = document.getElementById('expression');
+    
+    document.addEventListener('keydown', keydown);
+    table.addEventListener('click', click);
+
+    let token = '';
+    let rpnArray = [];
+
+    /**
+     * @param {KeyboardEvent} event
+     */
+    function keydown(event) {
+        console.log(event.key.toUpperCase());
+        const keys = ['*', '/', '+', '-', '(', ')', '.', '=', 
+            'C', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'BACKSPACE'];
+        const key = event.key.toUpperCase();
+        if (keys.includes(key)) {
+            /*const td = document.querySelector(`[data-code="${event.key.toUpperCase()}"]`);
+            if (td) td.click(); // imitation td click*/
+            codeHandler(key);
+        }
+    }
+    /**
+     * @param {MouseEvent} event
+     */
+    function click(event) {
+        if (event.target.tagName !== 'TD')
+            return;
+
+        const key = event.target.dataset.code;
+        codeHandler(key);
+    }
+
+    /**
+     * @param {string} code
+     */
+    function codeHandler(code) {
+        if (code === 'C') {
+            expression.textContent = token = '';
+            rpnArray = [];
+        } else if (code === 'BACKSPACE') {
+            expression.textContent = expression.textContent.slice(0, -1);
+            rpnArray.pop();
+        } else if (code === '=') {
+            try {
+                if (token !=='') rpnArray.push(token);
+                expression.textContent = token = rpn(yard(rpnArray));
+                rpnArray = [];
+                console.log(rpnArray, token);
+            } catch(e) {
+                alert('Не верное выражение!')
+            }
+        } else {
+            expression.textContent += code;
+            if (['*', '/', '+', '-', '(', ')'].includes(code)) {
+                rpnArray.push(token);
+                token = '';
+                rpnArray.push(code);
+            } else token += code;
+        }
+    }
+</script>
+</body>
+
+</html>
